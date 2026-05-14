@@ -1517,17 +1517,28 @@
         // ═══════════════════════════════════════════════════════════
         // ── Comptes (Nouveauté V4.0) ────────────────────────────
         function initAccounts() {
-            let accounts = JSON.parse(localStorage.getItem('military_accounts')) || [];
-            // Garantir que ADMIN existe toujours comme accès maître
-            if (!accounts.find(a => a.user === 'ADMIN')) {
-                accounts.push({
-                    user: 'ADMIN',
-                    pass: 'SW59',
-                    perms: ['accueil', 'operation', 'rs', 'zd', 'timer', 'rapport', 'identification', 'alert_manage', 'delete_entries', 'delete_reports', 'reset_list', 'reset_participation']
-                });
-                localStorage.setItem('military_accounts', JSON.stringify(accounts));
-            }
-        }
+    let accounts = JSON.parse(localStorage.getItem('military_accounts')) || [];
+    
+    // Garantir que ADMIN existe toujours comme accès maître
+    if (!accounts.find(a => a.user === 'ADMIN')) {
+        accounts.push({
+            user: 'ADMIN',
+            pass: 'SW59',
+            perms: ['accueil', 'operation', 'rs', 'zd', 'timer', 'rapport', 'identification', 'alert_manage', 'delete_entries', 'delete_reports', 'reset_list', 'reset_participation']
+        });
+    }
+
+    // Correction ici : Ajout du "if" manquant et fermeture correcte des blocs
+    if (!accounts.find(a => a.user === 'RTX')) {
+        accounts.push({
+            user: 'RTX',
+            pass: 'rtx',
+            perms: ['accueil', 'operation', 'rs', 'zd', 'timer', 'rapport', 'identification', 'alert_manage', 'delete_entries', 'delete_reports']
+        });
+    }
+
+    localStorage.setItem('military_accounts', JSON.stringify(accounts));
+}
 
         function register() {
             const userField = document.getElementById('username');
